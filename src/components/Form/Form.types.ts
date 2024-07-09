@@ -10,6 +10,7 @@ export interface FormItem{
   rows?: number
   select?: boolean
   data?: {label: string, value: any}[]
+  type?: 'number'
 }
 
 export interface FormProps{

@@ -35,10 +35,11 @@ export const Form: React.FC<FormProps> = ({title,data, items, submit, handleCanc
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.type)
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: event.target.type==='number'?Number(value):value,
     });
   };
 
@@ -59,11 +60,13 @@ export const Form: React.FC<FormProps> = ({title,data, items, submit, handleCanc
                     margin="normal"
                     label={item.label}
                     name={item.name}
+                    required={item.required}
                     value={formData[item.name]}
                     onChange={handleChange}
                     error={Boolean(errors[item.name])}
                     helperText={errors[item.name]}
                     rows={item.rows}
+                    type={item.type}
                     multiline={item.multiline}
                     select={item.select}>
                   {item.data?.map((option) => (

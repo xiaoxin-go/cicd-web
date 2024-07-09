@@ -44,7 +44,7 @@ export const Layout: React.FC = () => {
             component="div"
             sx={{flexGrow: 1, display: {xs: 'none', sm: 'block'}}}
           >
-            MUI
+            Devops
           </Typography>
           <Box sx={{display: {xs: 'none', sm: 'block'}}}>
             {menus.map((item) => (

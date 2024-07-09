@@ -45,7 +45,7 @@ const getValue = (item: TableColumn, row: any) => {
 const cell = (item: TableColumn, row: any) => {
   switch (item.tag) {
     case "chip":
-      return <Chip size="small" label={getValue(item, row)} color={item.color}/>
+      return <Chip size="small" label={getValue(item, row)} color={item.colorGetter?item.colorGetter(item):item.color}/>
     default:
       return getValue(item, row)
   }

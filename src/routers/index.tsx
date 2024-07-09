@@ -14,6 +14,8 @@ import {lazy} from "react";
 
 const Home = lazy(()=> import('pages/Home'))
 const ResourceTemplate = lazy(()=> import('pages/deployment/resource_template/ResourceTemplate'))
+const HealthcheckTemplate = lazy(()=> import('pages/deployment/healthcheck_template/HealthcheckTemplate'))
+const HealthcheckTemplateForm = lazy(()=> import('pages/deployment/healthcheck_template/HealthcheckTemplateForm'))
 const App = lazy(()=>import('pages/deployment/App'))
 
 const router = createBrowserRouter([
@@ -63,6 +65,8 @@ const router = createBrowserRouter([
         },
         {path: 'deployment/', children: [
             {path: 'resource_template', element: <ResourceTemplate/>},
+            {path: 'healthcheck_template', element: <HealthcheckTemplate/>},
+            {path: 'healthcheck_template/form', element: <HealthcheckTemplateForm/>},
             {path: 'app', element: <App/>},
           ]
         }

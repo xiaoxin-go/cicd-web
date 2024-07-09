@@ -43,6 +43,12 @@ export const ApiUri = {
       update: '/deployment/resource_template',
       delete: '/deployment/resource_template'
     },
-
+    healthcheckTemplate: {
+      list: '/deployment/healthcheck_templates',
+      get: '/deployment/healthcheck_template',
+      create: '/deployment/healthcheck_template',
+      update: '/deployment/healthcheck_template',
+      delete: '/deployment/healthcheck_template'
+    },
   }
 }

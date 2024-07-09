@@ -18,4 +18,6 @@ export interface RestProps{
   afterCreate?: (data: any)=>void
   beforeUpdate?: (data: any)=>any
   afterUpdate?: (data: any) =>any
+  onCreate?:() =>any
+  onEdit?:(data: any) => any
 }

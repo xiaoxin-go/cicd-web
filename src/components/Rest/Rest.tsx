@@ -9,7 +9,6 @@ import Dialog from 'components/Dialog'
 import React, {ReactNode, useState} from "react";
 import Form from "components/Form";
 import Drawer from 'components/Drawer'
-import {ApiUri} from "api";
 import useDialog from "components/useDialog";
 import {useAlertContext} from "context/AlertContext";
 
@@ -22,7 +21,8 @@ export const Rest: React.FC<RestProps> = ({
                                             tableColumns,
                                             formItems,
                                             beforeCreate, afterCreate,
-                                            beforeUpdate, afterUpdate
+                                            beforeUpdate, afterUpdate,
+                                            onCreate, onEdit
                                           }) => {
   const [rows, getRows, loading, page, pageSize, count, changePage, changePageSize] = useRequestPagination(uris.list)
   const [row, setRow] = useState<any>({})
@@ -45,10 +45,14 @@ export const Rest: React.FC<RestProps> = ({
   }
 
   const create = async (data: any) => {
+    if(!uris?.create){
+      showMessage('warning', 'uris.create is undefined')
+      return
+    }
     if (beforeCreate) {
       data = beforeCreate(data)
     }
-    let res = await http.post(ApiUri.k8s.namespace.create, data);
+    let res = await http.post(uris.create, data);
     if (res.code === 0) {
       closeDrawer()
       onSearch({})
@@ -59,10 +63,14 @@ export const Rest: React.FC<RestProps> = ({
     }
   }
   const update = async (data: any) => {
+    if (!uris?.update){
+      showMessage('warning', 'uris.update is undefined')
+      return
+    }
     if (beforeUpdate) {
       data = beforeUpdate(data)
     }
-    let res = await http.put(ApiUri.k8s.namespace.update, data);
+    let res = await http.put(uris.update, data);
     if (res.code === 0) {
       closeDrawer()
       onSearch({})
@@ -73,6 +81,11 @@ export const Rest: React.FC<RestProps> = ({
     }
   }
   const clickCreate = () =>{
+    // 点击添加事件
+    if (onCreate){
+      onCreate()
+      return
+    }
     setFormTitle("Create")
     setFormData({})
     openDrawer()
@@ -99,7 +112,11 @@ export const Rest: React.FC<RestProps> = ({
     )
   }
   const onDelete = async () => {
-    let res = await http.remove(ApiUri.k8s.namespace.delete, {name: row.name})
+    if(!uris.delete){
+      showMessage('warning', 'uris.delete is undefined')
+      return
+    }
+    let res = await http.remove(uris.delete, {name: row.name})
     if (res.code === 0) {
       showMessage('success', res.msg as string)
       closeDeleteOpen()
